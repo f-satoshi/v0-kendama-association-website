@@ -41,8 +41,8 @@ export function CharmSection() {
 
           <div className="relative w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
             <Image
-              src="/images/kendama-competitor.jpg"
-              alt="真剣な眼差しでけん玉競技に臨む成人男性"
+              src="/images/children-playing-kendama.jpg"
+              alt="楽しくけん玉で遊ぶ子どもたち"
               width={1200}
               height={800}
               className="w-full h-auto object-cover"

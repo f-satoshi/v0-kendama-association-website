@@ -3,32 +3,38 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Updated color palette to be brighter, more playful and kid-friendly */
 :root {
-  --background: oklch(0.99 0.005 85);
-  --foreground: oklch(0.25 0.015 30);
+  --background: oklch(0.99 0.01 85);
+  --foreground: oklch(0.3 0.02 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.25 0.015 30);
+  --card-foreground: oklch(0.3 0.02 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.25 0.015 30);
-  --primary: oklch(0.45 0.15 25);
-  --primary-foreground: oklch(0.99 0.005 85);
-  --secondary: oklch(0.92 0.01 85);
-  --secondary-foreground: oklch(0.25 0.015 30);
-  --muted: oklch(0.95 0.008 85);
-  --muted-foreground: oklch(0.5 0.01 30);
-  --accent: oklch(0.65 0.18 35);
-  --accent-foreground: oklch(0.99 0.005 85);
+  --popover-foreground: oklch(0.3 0.02 260);
+  /* Bright, cheerful orange for primary */
+  --primary: oklch(0.65 0.22 45);
+  --primary-foreground: oklch(1 0 0);
+  /* Soft yellow for secondary */
+  --secondary: oklch(0.95 0.08 95);
+  --secondary-foreground: oklch(0.3 0.02 260);
+  --muted: oklch(0.96 0.01 85);
+  --muted-foreground: oklch(0.55 0.02 260);
+  /* Vibrant blue for accent */
+  --accent: oklch(0.7 0.18 240);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.99 0.005 85);
-  --border: oklch(0.88 0.01 85);
-  --input: oklch(0.88 0.01 85);
-  --ring: oklch(0.45 0.15 25);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.5rem;
+  --border: oklch(0.9 0.02 85);
+  --input: oklch(0.9 0.02 85);
+  --ring: oklch(0.65 0.22 45);
+  /* Bright, playful chart colors */
+  --chart-1: oklch(0.7 0.25 30);
+  --chart-2: oklch(0.75 0.2 240);
+  --chart-3: oklch(0.7 0.22 150);
+  --chart-4: oklch(0.75 0.24 300);
+  --chart-5: oklch(0.8 0.2 60);
+  /* Increased radius for softer, rounder appearance */
+  --radius: 1rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -40,30 +46,30 @@
 }
 
 .dark {
-  --background: oklch(0.15 0.015 30);
-  --foreground: oklch(0.99 0.005 85);
-  --card: oklch(0.18 0.015 30);
-  --card-foreground: oklch(0.99 0.005 85);
-  --popover: oklch(0.18 0.015 30);
-  --popover-foreground: oklch(0.99 0.005 85);
-  --primary: oklch(0.65 0.18 35);
-  --primary-foreground: oklch(0.15 0.015 30);
-  --secondary: oklch(0.25 0.015 30);
-  --secondary-foreground: oklch(0.99 0.005 85);
-  --muted: oklch(0.22 0.015 30);
-  --muted-foreground: oklch(0.65 0.01 85);
-  --accent: oklch(0.65 0.18 35);
-  --accent-foreground: oklch(0.15 0.015 30);
+  --background: oklch(0.2 0.02 260);
+  --foreground: oklch(0.99 0.01 85);
+  --card: oklch(0.25 0.02 260);
+  --card-foreground: oklch(0.99 0.01 85);
+  --popover: oklch(0.25 0.02 260);
+  --popover-foreground: oklch(0.99 0.01 85);
+  --primary: oklch(0.7 0.22 45);
+  --primary-foreground: oklch(0.2 0.02 260);
+  --secondary: oklch(0.3 0.02 260);
+  --secondary-foreground: oklch(0.99 0.01 85);
+  --muted: oklch(0.28 0.02 260);
+  --muted-foreground: oklch(0.7 0.02 85);
+  --accent: oklch(0.75 0.18 240);
+  --accent-foreground: oklch(0.2 0.02 260);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.99 0.005 85);
-  --border: oklch(0.25 0.015 30);
-  --input: oklch(0.25 0.015 30);
-  --ring: oklch(0.65 0.18 35);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --border: oklch(0.3 0.02 260);
+  --input: oklch(0.3 0.02 260);
+  --ring: oklch(0.7 0.22 45);
+  --chart-1: oklch(0.7 0.25 30);
+  --chart-2: oklch(0.75 0.2 240);
+  --chart-3: oklch(0.7 0.22 150);
+  --chart-4: oklch(0.75 0.24 300);
+  --chart-5: oklch(0.8 0.2 60);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -75,8 +81,8 @@
 }
 
 @theme inline {
-  --font-sans: "Noto Sans JP", "Geist", "Geist Fallback", sans-serif;
-  --font-serif: "Noto Serif JP", serif;
+  /* Updated to use M PLUS Rounded 1c font */
+  --font-sans: "M PLUS Rounded 1c", "Geist", "Geist Fallback", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
