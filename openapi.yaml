@@ -1,0 +1,328 @@
+openapi: 3.0.3
+info:
+  title: 全日本けん玉協会 大会結果API
+  description: けん玉大会の試合結果を管理するためのAPI
+  version: 1.0.0
+  contact:
+    name: 全日本けん玉協会
+    email: info@kendama.or.jp
+
+servers:
+  - url: https://api.kendama.or.jp/v1
+    description: 本番環境
+  - url: https://api-staging.kendama.or.jp/v1
+    description: ステージング環境
+
+paths:
+  /tournaments:
+    get:
+      summary: 大会結果一覧の取得
+      description: 直近の大会結果を取得します。デフォルトでは最新3件を返します。
+      operationId: getTournaments
+      tags:
+        - tournaments
+      parameters:
+        - name: limit
+          in: query
+          description: 取得する件数（デフォルト: 3）
+          required: false
+          schema:
+            type: integer
+            default: 3
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          description: 取得開始位置（デフォルト: 0）
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tournament'
+                  total:
+                    type: integer
+                    description: 総件数
+                  limit:
+                    type: integer
+                    description: 取得件数
+                  offset:
+                    type: integer
+                    description: 取得開始位置
+              examples:
+                success:
+                  value:
+                    data:
+                      - id: "1"
+                        date: "2024-03-15"
+                        location: "東京体育館"
+                        player1:
+                          id: "p001"
+                          name: "田中太郎"
+                          photoUrl: "/images/player1.jpg"
+                        player2:
+                          id: "p002"
+                          name: "佐藤花子"
+                          photoUrl: "/images/player2.jpg"
+                        score:
+                          player1: 15
+                          player2: 12
+                        winner: "p001"
+                      - id: "2"
+                        date: "2024-02-20"
+                        location: "大阪城ホール"
+                        player1:
+                          id: "p003"
+                          name: "鈴木一郎"
+                          photoUrl: "/images/player3.jpg"
+                        player2:
+                          id: "p004"
+                          name: "高橋美咲"
+                          photoUrl: "/images/player4.jpg"
+                        score:
+                          player1: 18
+                          player2: 14
+                        winner: "p003"
+                    total: 50
+                    limit: 3
+                    offset: 0
+        '400':
+          description: リクエストパラメータが不正
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: サーバーエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /tournaments/{tournamentId}:
+    get:
+      summary: 特定の大会結果の取得
+      description: 指定されたIDの大会結果を取得します。
+      operationId: getTournamentById
+      tags:
+        - tournaments
+      parameters:
+        - name: tournamentId
+          in: path
+          description: 大会ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tournament'
+              examples:
+                success:
+                  value:
+                    id: "1"
+                    date: "2024-03-15"
+                    location: "東京体育館"
+                    player1:
+                      id: "p001"
+                      name: "田中太郎"
+                      photoUrl: "/images/player1.jpg"
+                    player2:
+                      id: "p002"
+                      name: "佐藤花子"
+                      photoUrl: "/images/player2.jpg"
+                    score:
+                      player1: 15
+                      player2: 12
+                    winner: "p001"
+        '404':
+          description: 大会が見つかりません
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: サーバーエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /players/{playerId}:
+    get:
+      summary: 選手情報の取得
+      description: 指定されたIDの選手情報を取得します。
+      operationId: getPlayerById
+      tags:
+        - players
+      parameters:
+        - name: playerId
+          in: path
+          description: 選手ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+              examples:
+                success:
+                  value:
+                    id: "p001"
+                    name: "田中太郎"
+                    photoUrl: "/images/player1.jpg"
+                    age: 25
+                    rank: "五段"
+                    wins: 45
+                    losses: 12
+        '404':
+          description: 選手が見つかりません
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: サーバーエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Tournament:
+      type: object
+      required:
+        - id
+        - date
+        - location
+        - player1
+        - player2
+        - score
+        - winner
+      properties:
+        id:
+          type: string
+          description: 大会ID
+          example: "1"
+        date:
+          type: string
+          format: date
+          description: 試合日時（YYYY-MM-DD形式）
+          example: "2024-03-15"
+        location:
+          type: string
+          description: 開催場所
+          example: "東京体育館"
+        player1:
+          $ref: '#/components/schemas/Player'
+        player2:
+          $ref: '#/components/schemas/Player'
+        score:
+          type: object
+          required:
+            - player1
+            - player2
+          properties:
+            player1:
+              type: integer
+              description: 選手1のスコア
+              example: 15
+            player2:
+              type: integer
+              description: 選手2のスコア
+              example: 12
+        winner:
+          type: string
+          description: 勝者の選手ID
+          example: "p001"
+
+    Player:
+      type: object
+      required:
+        - id
+        - name
+        - photoUrl
+      properties:
+        id:
+          type: string
+          description: 選手ID
+          example: "p001"
+        name:
+          type: string
+          description: 選手名
+          example: "田中太郎"
+        photoUrl:
+          type: string
+          format: uri
+          description: 選手の顔写真URL
+          example: "/images/player1.jpg"
+        age:
+          type: integer
+          description: 年齢
+          example: 25
+        rank:
+          type: string
+          description: 段位
+          example: "五段"
+        wins:
+          type: integer
+          description: 勝利数
+          example: 45
+        losses:
+          type: integer
+          description: 敗北数
+          example: 12
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: エラーコード
+          example: "INVALID_PARAMETER"
+        message:
+          type: string
+          description: エラーメッセージ
+          example: "リクエストパラメータが不正です"
+        details:
+          type: string
+          description: エラー詳細
+          example: "limit パラメータは1以上100以下の整数である必要があります"
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: APIキー認証
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: tournaments
+    description: 大会結果に関する操作
+  - name: players
+    description: 選手情報に関する操作
